@@ -1,89 +1,105 @@
- import java.util.Scanner;
+import java.util.Scanner;
+
 public class Book {
-    int bookid;       
-    String title;    
-    String author;  
+    private int bookId;
+    private String title;
+    private String author;
 
-    
- Book(int bookId, String title, String author) {
-    this.bookid = bookid;
+ public Book(int bookId, String title, String author) {
+    this.bookId = bookId;
     this.title = title;
-     this.author = author;
+    this.author = author;
  }
-    void display() {
-        System.out.println("bookid " + bookid);
-        System.out.println("title " + title);
-        System.out.println("author " + author);
-    } } 
-class Referencebook extends Book {
-    int edition;  
-Referencebook(int bookId, String title, String author, int edition) {
+
+public void display() {
+    System.out.println("Book ID: " + bookId);
+    System.out.println("Title: " + title);
+    System.out.println("Author: " + author);
+    }
+
+static class ReferenceBook extends Book {
+        private int edition;
+
+public ReferenceBook(int bookId, String title, String author, int edition) {
+    super(bookId, title, author);
+    this.edition = edition;
+        }
+
+       
+    public void display() {
+         super.display();
+
+        System.out.println("Edition: " + edition);
+        }}
+
+    static class FictionBook extends Book {
+    private String genre;
+
+    public FictionBook(int bookId, String title, String author, String genre) {
         super(bookId, title, author);
-        this.edition = edition;
-    }
-    void display() {
-        super.display(); 
-        System.out.println("edition" + edition);
-    } }
-
-class Fictionbook extends Book {
-    String genre;
-
-    Fictionbook(int bookId, String title, String author, String genre) {
-        super(bookId, title, author); 
         this.genre = genre;
-    }
+        }
 
-    void display() {
-        super.display(); 
-        System.out.println("Genre" + genre);
-    } }
-
-public class Main {
+      
+    public void display() {
+         super.display();
+        System.out.println("Genre: " + genre);
+        } }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-    
-        System.out.print("bookid");
-        int rbookId = scanner.nextInt();
-        scanner.nextLine();
+    Scanner scanner = new Scanner(System.in);
 
-     System.out.print("title");
-        String rtitle = scanner.nextLine();
+        
+    System.out.println("Enter details for Reference Book:");
+    System.out.print("Enter Book ID: ");
+    int refBookId = scanner.nextInt();
+    scanner.nextLine(); 
 
-     System.out.print("author: ");
-        String rauthor = scanner.nextLine();
+    System.out.print("Enter Title: ");
+    String refTitle = scanner.nextLine();
 
-     System.out.print("edition: ");
-        int redition = scanner.nextInt();
-        scanner.nextLine();
+    System.out.print("Enter Author: ");
+    String refAuthor = scanner.nextLine();
 
-     System.out.print("Genre: ");
-        String rgenre = scanner.nextLine();
+    int refEdition;
+        while (true) {
+        System.out.print("Enter Edition: ");
+        if (scanner.hasNextInt()) 
+        {
+           refEdition = scanner.nextInt();
+           scanner.nextLine(); 
+                break;
+            } 
+            else {
 
-        Referencebook refBook = new Referencebook(rbookId, rtitle, rauthor, redition);
-        System.out.println("\nReference Book Information:");
+             System.out.println("Invalid input! Please enter a valid integer for Edition.");
+            scanner.nextLine(); 
+            } }
 
+        ReferenceBook refBook = new ReferenceBook(refBookId, refTitle, refAuthor, refEdition);
+        System.out.println("\nReference Book Details:");
         refBook.display();
 
         System.out.println("\n");
-         System.out.println("Fiction");
-        System.out.print("bookid ");
-        int fbookId = scanner.nextInt();
+
+        
+        System.out.println("Enter details for Fiction Book:");
+        System.out.print("Enter Book ID: ");
+        int ficBookId = scanner.nextInt();
         scanner.nextLine(); 
 
-        System.out.print("title");
-        String ftitle = scanner.nextLine();
+    System.out.print("Enter Title: ");
+    String ficTitle = scanner.nextLine();
 
-        System.out.print("author");
-        String fauthor = scanner.nextLine();
+    System.out.print("Enter Author: ");
+    String ficAuthor = scanner.nextLine();
 
-        System.out.print("Genre");
-        String fgenre = scanner.nextLine();
+    System.out.print("Enter Genre: ");
+    String ficGenre = scanner.nextLine();
 
-        Fictionbook ficBook = new Fictionbook(fbookId, ftitle, fauthor, fgenre);
-
-  ficBook.display();
+    FictionBook ficBook = new FictionBook(ficBookId, ficTitle, ficAuthor, ficGenre);
+    System.out.println("\nFiction Book Details:");
+    ficBook.display();
 
     scanner.close();
-    }}
+    } }
